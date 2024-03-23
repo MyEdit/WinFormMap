@@ -6,6 +6,10 @@ namespace WinFormMap
         private readonly Bitmap mapImage;
         private Dictionary<int, SKUD> SKUDs;
 
+        //Для генерации
+        private List<List<Point>> skudList = new List<List<Point>>();
+        private int iterator = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -87,6 +91,43 @@ namespace WinFormMap
             {
                 person.LastSecurityPointNumber = random.Next(0, 23);
             }
+        }
+
+        //Для генерации
+        private void pictureBoxMap_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (skudList.Count == iterator)
+            {
+                skudList.Add(new List<Point>());
+            }
+
+            skudList[iterator].Add(new Point(e.X, e.Y));
+            if (skudList[iterator].Count % 4 == 0)
+            {
+                iterator++;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (StreamWriter writer = new StreamWriter("skud.txt"))
+            {
+                for (int i = 0; i < skudList.Count; i++)
+                {
+                    writer.Write($"{{{i}, new SKUD({i}, [");
+                    for (int j = 0; j < skudList[i].Count; j++)
+                    {
+                        writer.Write($"new({skudList[i][j].X}, {skudList[i][j].Y})");
+                        if (j < skudList[i].Count - 1)
+                        {
+                            writer.Write(", ");
+                        }
+                    }
+                    writer.WriteLine("])},");
+                }
+            }
+
+            MessageBox.Show("Сохранено в файл skud.txt");
         }
     }
 }

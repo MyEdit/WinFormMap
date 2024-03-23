@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             pictureBoxMap = new PictureBox();
             updateTimer = new System.Windows.Forms.Timer(components);
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMap).BeginInit();
             SuspendLayout();
             // 
@@ -44,6 +45,7 @@
             pictureBoxMap.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxMap.TabIndex = 0;
             pictureBoxMap.TabStop = false;
+            pictureBoxMap.MouseClick += pictureBoxMap_MouseClick;
             // 
             // updateTimer
             // 
@@ -51,11 +53,22 @@
             updateTimer.Interval = 3000;
             updateTimer.Tick += UpdateTimer_Tick;
             // 
+            // button1
+            // 
+            button1.Location = new Point(711, 578);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 1;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1492, 535);
+            ClientSize = new Size(1492, 627);
+            Controls.Add(button1);
             Controls.Add(pictureBoxMap);
             Name = "Form1";
             Text = "Form1";
@@ -67,5 +80,6 @@
 
         private PictureBox pictureBoxMap;
         private System.Windows.Forms.Timer updateTimer;
+        private Button button1;
     }
 }
